@@ -9,8 +9,10 @@ import java.sql.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.bean.Admin;
+import model.bean.Apartment;
 import model.bean.Tenant;
 import model.dao.AdminDAO;
+import model.dao.ApartmentDAO;
 import model.dao.TenantDAO;
 
 /**
@@ -27,6 +29,7 @@ public class ApartmentRental extends javax.swing.JFrame {
     
     // Selected objects
     private Tenant selectedTenant = null;
+    private Apartment selectedApartment = null;
     
     /**
      * Creates new form Menu
@@ -39,6 +42,10 @@ public class ApartmentRental extends javax.swing.JFrame {
         ApartmentRental.this.tenantSearchPanel.setVisible(false);
         ApartmentRental.this.tenantReadPanel.setVisible(false);
         ApartmentRental.this.tenantUpdatePanel.setVisible(false);
+        ApartmentRental.this.apartmentCreatePanel.setVisible(false);
+        ApartmentRental.this.apartmentSearchPanel.setVisible(false);
+        ApartmentRental.this.apartmentReadPanel.setVisible(false);
+        ApartmentRental.this.apartmentUpdatePanel.setVisible(false);
     }
     
     private void cleanSelectedTenant() {
@@ -46,11 +53,26 @@ public class ApartmentRental extends javax.swing.JFrame {
         tenantReadName.setText("");
         tenantReadCpf.setText("");
         tenantReadRg.setText("");
+        tenantReadYear.setText("2017");
+        tenantReadMonth.setText("1");
+        tenantReadDay.setText("1");
+        tenantReadPhone.setText("");
+        tenantReadLandline.setText("");
+        tenantReadApartment.setText("");
+    }
+    
+    private void cleanSelectedApartment() {
+        selectedApartment = null;
+        apartmentReadBuilding.setText("");
+        apartmentReadNumber.setText("");
+        apartmentReadComments.setText("");
     }
     
     private void cleanSearch() {
         DefaultTableModel tableModel = (DefaultTableModel) tenantSearchTable.getModel();
         tableModel.setNumRows(0);
+        DefaultTableModel tableModel2 = (DefaultTableModel) apartmentSearchTable.getModel();
+        tableModel2.setNumRows(0);
     }
 
     /**
@@ -77,6 +99,8 @@ public class ApartmentRental extends javax.swing.JFrame {
         tenantCreateButton = new javax.swing.JButton();
         tenantCreateSearchButton = new javax.swing.JButton();
         apartmentjPanel = new javax.swing.JPanel();
+        apartmentCreateButton = new javax.swing.JButton();
+        apartmentCreateSearchButton = new javax.swing.JButton();
         contractjPanel = new javax.swing.JPanel();
         tenantCreatePanel = new javax.swing.JPanel();
         tenantCreateLabel2 = new javax.swing.JLabel();
@@ -95,6 +119,8 @@ public class ApartmentRental extends javax.swing.JFrame {
         tenantCreatePhone = new javax.swing.JTextField();
         tenantCreateLabel7 = new javax.swing.JLabel();
         tenantCreateLandline = new javax.swing.JTextField();
+        tenantCreateLabel8 = new javax.swing.JLabel();
+        tenantCreateApartments = new javax.swing.JComboBox<>();
         tenantSearchPanel = new javax.swing.JPanel();
         tenantSearchPerfilAccess = new javax.swing.JButton();
         tenantSearchBackButton = new javax.swing.JButton();
@@ -114,6 +140,16 @@ public class ApartmentRental extends javax.swing.JFrame {
         tenantReadjLabel1 = new javax.swing.JLabel();
         tenantReadjLabel2 = new javax.swing.JLabel();
         tenantReadjLabel3 = new javax.swing.JLabel();
+        tenantReadjLabel4 = new javax.swing.JLabel();
+        tenantReadDay = new javax.swing.JTextField();
+        tenantReadMonth = new javax.swing.JTextField();
+        tenantReadYear = new javax.swing.JTextField();
+        tenantReadjLabel5 = new javax.swing.JLabel();
+        tenantReadjLabel6 = new javax.swing.JLabel();
+        tenantReadPhone = new javax.swing.JTextField();
+        tenantReadLandline = new javax.swing.JTextField();
+        tenantReadjLabel7 = new javax.swing.JLabel();
+        tenantReadApartment = new javax.swing.JTextField();
         tenantUpdatePanel = new javax.swing.JPanel();
         tenantUpdateName = new javax.swing.JTextField();
         tenantUpdateLabel2 = new javax.swing.JLabel();
@@ -123,6 +159,54 @@ public class ApartmentRental extends javax.swing.JFrame {
         tenantUpdateLabel1 = new javax.swing.JLabel();
         tenantUpdateBackButton = new javax.swing.JButton();
         confirmButton = new javax.swing.JButton();
+        tenantUpdateLabel4 = new javax.swing.JLabel();
+        tenantUpdatejLabel8 = new javax.swing.JLabel();
+        tenantUpdatejLabel9 = new javax.swing.JLabel();
+        tenantUpdatejLabel10 = new javax.swing.JLabel();
+        tenantUpdateDay = new javax.swing.JComboBox<>();
+        tenantUpdateMonth = new javax.swing.JComboBox<>();
+        tenantUpdateYear = new javax.swing.JComboBox<>();
+        tenantUpdatePhone = new javax.swing.JTextField();
+        tenantUpdateLandline = new javax.swing.JTextField();
+        tenantUpdateApartments = new javax.swing.JComboBox<>();
+        apartmentCreatePanel = new javax.swing.JPanel();
+        apartmentCreateLabel1 = new javax.swing.JLabel();
+        apartmentCreateLabel2 = new javax.swing.JLabel();
+        apartmentCreateLabel3 = new javax.swing.JLabel();
+        apartmentCreateBuilding = new javax.swing.JTextField();
+        apartmentCreateNumber = new javax.swing.JTextField();
+        apartmentCreateConfirmButton = new javax.swing.JButton();
+        apartmentCreateBackButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        apartmentCreateComments = new javax.swing.JTextArea();
+        apartmentSearchPanel = new javax.swing.JPanel();
+        apartmentSearchPerfilAccess = new javax.swing.JButton();
+        apartmentSearchBackButton = new javax.swing.JButton();
+        apartmentSearchConfirmButton = new javax.swing.JButton();
+        apartmentSearchSearch = new javax.swing.JTextField();
+        apartmentSearchjLabel1 = new javax.swing.JLabel();
+        apartmentSearchSearchBy = new javax.swing.JComboBox<>();
+        tenantSearchjScrollPane2 = new javax.swing.JScrollPane();
+        apartmentSearchTable = new javax.swing.JTable();
+        apartmentReadPanel = new javax.swing.JPanel();
+        apartmentReadDeleteButton = new javax.swing.JButton();
+        apartmentReadComments = new javax.swing.JTextField();
+        apartmentReadNumber = new javax.swing.JTextField();
+        apartmentReadBuilding = new javax.swing.JTextField();
+        apartmentReadEditButton = new javax.swing.JButton();
+        apartmentReadBackButton = new javax.swing.JButton();
+        apartmentReadjLabel3 = new javax.swing.JLabel();
+        apartmentReadjLabel2 = new javax.swing.JLabel();
+        apartmentReadjLabel1 = new javax.swing.JLabel();
+        apartmentUpdatePanel = new javax.swing.JPanel();
+        apartmentUpdateConfirmButton = new javax.swing.JButton();
+        apartmentUpdateComments = new javax.swing.JTextField();
+        apartmentUpdateNumber = new javax.swing.JTextField();
+        apartmentUpdateBuilding = new javax.swing.JTextField();
+        apartmentUpdateBackButton = new javax.swing.JButton();
+        apartmentUpdatejLabel1 = new javax.swing.JLabel();
+        apartmentUpdatejLabel2 = new javax.swing.JLabel();
+        apartmentUpdatejLabel3 = new javax.swing.JLabel();
         applicationWindowjMenuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -271,15 +355,41 @@ public class ApartmentRental extends javax.swing.JFrame {
 
         menujTabbedPane.addTab("Inquilinos", tenantjPanel);
 
+        apartmentCreateButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentCreateButton.setText("Cadastrar Apartamento");
+        apartmentCreateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentCreateButtonActionPerformed(evt);
+            }
+        });
+
+        apartmentCreateSearchButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentCreateSearchButton.setText("Procurar Apartamento");
+        apartmentCreateSearchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentCreateSearchButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout apartmentjPanelLayout = new javax.swing.GroupLayout(apartmentjPanel);
         apartmentjPanel.setLayout(apartmentjPanelLayout);
         apartmentjPanelLayout.setHorizontalGroup(
             apartmentjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apartmentjPanelLayout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(apartmentCreateButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                .addComponent(apartmentCreateSearchButton)
+                .addGap(78, 78, 78))
         );
         apartmentjPanelLayout.setVerticalGroup(
             apartmentjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 371, Short.MAX_VALUE)
+            .addGroup(apartmentjPanelLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(apartmentjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apartmentCreateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(apartmentCreateSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         menujTabbedPane.addTab("Apartamentos", apartmentjPanel);
@@ -375,6 +485,9 @@ public class ApartmentRental extends javax.swing.JFrame {
 
         tenantCreateLandline.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
 
+        tenantCreateLabel8.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        tenantCreateLabel8.setText("Apartamento");
+
         javax.swing.GroupLayout tenantCreatePanelLayout = new javax.swing.GroupLayout(tenantCreatePanel);
         tenantCreatePanel.setLayout(tenantCreatePanelLayout);
         tenantCreatePanelLayout.setHorizontalGroup(
@@ -414,14 +527,18 @@ public class ApartmentRental extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(tenantCreatePhone, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(tenantCreatePanelLayout.createSequentialGroup()
-                                        .addComponent(tenantCreateLabel7)
+                                        .addGroup(tenantCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(tenantCreateLabel8)
+                                            .addComponent(tenantCreateLabel7))
                                         .addGap(18, 18, 18)
-                                        .addComponent(tenantCreateLandline, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(tenantCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tenantCreateLandline, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tenantCreateApartments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(2, 2, 2))))
                     .addGroup(tenantCreatePanelLayout.createSequentialGroup()
-                        .addGap(207, 207, 207)
+                        .addGap(206, 206, 206)
                         .addComponent(tenantCreateBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)
+                        .addGap(62, 62, 62)
                         .addComponent(tenantCreateConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
@@ -454,11 +571,15 @@ public class ApartmentRental extends javax.swing.JFrame {
                 .addGroup(tenantCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tenantCreateLabel7)
                     .addComponent(tenantCreateLandline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(tenantCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantCreateApartments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tenantCreateLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(tenantCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tenantCreateBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tenantCreateConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                .addContainerGap())
         );
 
         getContentPane().add(tenantCreatePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 68, 800, 510));
@@ -490,6 +611,11 @@ public class ApartmentRental extends javax.swing.JFrame {
         });
 
         tenantSearchSearch.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tenantSearchSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tenantSearchSearchActionPerformed(evt);
+            }
+        });
 
         tenantSearchjLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tenantSearchjLabel1.setText("Buscar por");
@@ -502,11 +628,11 @@ public class ApartmentRental extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "CPF", "RG", "Data de nascimento", "Celular", "Telefone fixo"
+                "ID", "Nome", "Apartamento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -625,53 +751,113 @@ public class ApartmentRental extends javax.swing.JFrame {
         tenantReadjLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tenantReadjLabel3.setText("Nome");
 
+        tenantReadjLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tenantReadjLabel4.setText("Data de nascimento");
+
+        tenantReadDay.setEditable(false);
+        tenantReadDay.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        tenantReadMonth.setEditable(false);
+        tenantReadMonth.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        tenantReadYear.setEditable(false);
+        tenantReadYear.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        tenantReadjLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tenantReadjLabel5.setText("Celular");
+
+        tenantReadjLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tenantReadjLabel6.setText("Telefone fixo");
+
+        tenantReadPhone.setEditable(false);
+        tenantReadPhone.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        tenantReadLandline.setEditable(false);
+        tenantReadLandline.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        tenantReadjLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tenantReadjLabel7.setText("Apartamento");
+
+        tenantReadApartment.setEditable(false);
+        tenantReadApartment.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout tenantReadPanelLayout = new javax.swing.GroupLayout(tenantReadPanel);
         tenantReadPanel.setLayout(tenantReadPanelLayout);
         tenantReadPanelLayout.setHorizontalGroup(
             tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tenantReadPanelLayout.createSequentialGroup()
-                .addContainerGap(290, Short.MAX_VALUE)
+                .addGap(112, 112, 112)
+                .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tenantReadjLabel2)
+                    .addComponent(tenantReadjLabel3)
+                    .addComponent(tenantReadjLabel1)
+                    .addComponent(tenantReadjLabel4)
+                    .addComponent(tenantReadjLabel5)
+                    .addComponent(tenantReadjLabel6)
+                    .addComponent(tenantReadjLabel7))
+                .addGap(18, 18, 18)
                 .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tenantReadPanelLayout.createSequentialGroup()
-                        .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tenantReadjLabel1)
-                            .addComponent(tenantReadjLabel2)
-                            .addComponent(tenantReadjLabel3))
-                        .addGap(18, 18, 18)
+                    .addComponent(tenantReadName, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(tenantReadPanelLayout.createSequentialGroup()
+                            .addComponent(tenantReadBackButton2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tenantReadEditButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(tenantReadDeleteButton))
                         .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tenantReadName)
-                            .addComponent(tenantReadCpf)
-                            .addComponent(tenantReadRg, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(226, 226, 226))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tenantReadPanelLayout.createSequentialGroup()
-                        .addComponent(tenantReadBackButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tenantReadEditButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tenantReadDeleteButton)
-                        .addGap(243, 243, 243))))
+                            .addGroup(tenantReadPanelLayout.createSequentialGroup()
+                                .addComponent(tenantReadDay, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tenantReadMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tenantReadYear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tenantReadLandline)
+                            .addComponent(tenantReadPhone)
+                            .addComponent(tenantReadApartment)
+                            .addComponent(tenantReadRg)
+                            .addComponent(tenantReadCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         tenantReadPanelLayout.setVerticalGroup(
             tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tenantReadPanelLayout.createSequentialGroup()
-                .addGap(111, 111, 111)
+                .addGap(87, 87, 87)
                 .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tenantReadjLabel3)
                     .addComponent(tenantReadName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tenantReadjLabel2)
                     .addComponent(tenantReadCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tenantReadjLabel1)
                     .addComponent(tenantReadRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantReadjLabel4)
+                    .addComponent(tenantReadDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tenantReadMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tenantReadYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantReadjLabel5)
+                    .addComponent(tenantReadPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantReadjLabel6)
+                    .addComponent(tenantReadLandline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantReadjLabel7)
+                    .addComponent(tenantReadApartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
                 .addGroup(tenantReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tenantReadBackButton2)
                     .addComponent(tenantReadEditButton)
                     .addComponent(tenantReadDeleteButton))
-                .addGap(126, 126, 126))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         getContentPane().add(tenantReadPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 68, 800, 510));
@@ -719,57 +905,506 @@ public class ApartmentRental extends javax.swing.JFrame {
             }
         });
 
+        tenantUpdateLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tenantUpdateLabel4.setText("Data de nascimento");
+
+        tenantUpdatejLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tenantUpdatejLabel8.setText("Celular");
+
+        tenantUpdatejLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tenantUpdatejLabel9.setText("Telefone fixo");
+
+        tenantUpdatejLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tenantUpdatejLabel10.setText("Apartamento");
+
+        tenantUpdateDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        tenantUpdateMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+
+        tenantUpdateYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1900", "1901", "1902", "1903", "1904", "1905", "1906", "1907", "1908", "1909", "1910", "1911", "1912", "1913", "1914", "1915", "1916", "1917", "1918", "1919", "1920", "1921", "1922", "1923", "1924", "1925", "1926", "1927", "1928", "1929", "1930", "1931", "1932", "1933", "1934", "1935", "1936", "1937", "1938", "1939", "1940", "1941", "1942", "1943", "1944", "1945", "1946", "1947", "1948", "1949", "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017" }));
+        tenantUpdateYear.setSelectedIndex(117);
+        tenantUpdateYear.setToolTipText("");
+
+        tenantUpdatePhone.setEditable(false);
+        tenantUpdatePhone.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        tenantUpdateLandline.setEditable(false);
+        tenantUpdateLandline.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout tenantUpdatePanelLayout = new javax.swing.GroupLayout(tenantUpdatePanel);
         tenantUpdatePanel.setLayout(tenantUpdatePanelLayout);
         tenantUpdatePanelLayout.setHorizontalGroup(
             tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-            .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(tenantUpdatePanelLayout.createSequentialGroup()
-                    .addGap(258, 258, 258)
-                    .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tenantUpdatePanelLayout.createSequentialGroup()
+                .addGap(126, 126, 126)
+                .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tenantUpdatejLabel10)
+                    .addComponent(tenantUpdatejLabel8)
+                    .addComponent(tenantUpdatejLabel9)
+                    .addComponent(tenantUpdateLabel4)
+                    .addComponent(tenantUpdateLabel3)
+                    .addComponent(tenantUpdateLabel2)
+                    .addComponent(tenantUpdateLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tenantUpdateCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(tenantUpdatePanelLayout.createSequentialGroup()
+                        .addComponent(tenantUpdateDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tenantUpdateMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tenantUpdateYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tenantUpdateName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(tenantUpdatePanelLayout.createSequentialGroup()
-                            .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(tenantUpdateLabel3)
-                                .addComponent(tenantUpdateLabel2)
-                                .addComponent(tenantUpdateLabel1))
-                            .addGap(18, 18, 18)
-                            .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tenantUpdateName)
-                                .addComponent(tenantUpdateCpf)
-                                .addComponent(tenantUpdateRg, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(tenantUpdatePanelLayout.createSequentialGroup()
-                            .addGap(67, 67, 67)
                             .addComponent(tenantUpdateBackButton)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(confirmButton)))
-                    .addContainerGap(258, Short.MAX_VALUE)))
+                            .addComponent(confirmButton))
+                        .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tenantUpdateApartments, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tenantUpdateLandline, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tenantUpdatePhone, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tenantUpdateRg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         tenantUpdatePanelLayout.setVerticalGroup(
             tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
-            .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(tenantUpdatePanelLayout.createSequentialGroup()
-                    .addGap(172, 172, 172)
-                    .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tenantUpdateLabel1)
-                        .addComponent(tenantUpdateName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tenantUpdateLabel2)
-                        .addComponent(tenantUpdateCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tenantUpdateLabel3)
-                        .addComponent(tenantUpdateRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                    .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tenantUpdateBackButton)
-                        .addComponent(confirmButton))
-                    .addGap(172, 172, 172)))
+            .addGroup(tenantUpdatePanelLayout.createSequentialGroup()
+                .addGap(69, 69, 69)
+                .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantUpdateLabel1)
+                    .addComponent(tenantUpdateName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantUpdateLabel2)
+                    .addComponent(tenantUpdateCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantUpdateLabel3)
+                    .addComponent(tenantUpdateRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantUpdateLabel4)
+                    .addComponent(tenantUpdateDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tenantUpdateMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tenantUpdateYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantUpdatejLabel8)
+                    .addComponent(tenantUpdatePhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantUpdatejLabel9)
+                    .addComponent(tenantUpdateLandline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantUpdatejLabel10)
+                    .addComponent(tenantUpdateApartments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(tenantUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenantUpdateBackButton)
+                    .addComponent(confirmButton))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         getContentPane().add(tenantUpdatePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 68, 800, 510));
+
+        apartmentCreatePanel.setPreferredSize(new java.awt.Dimension(600, 520));
+
+        apartmentCreateLabel1.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        apartmentCreateLabel1.setText("Prédio");
+
+        apartmentCreateLabel2.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        apartmentCreateLabel2.setText("Número");
+
+        apartmentCreateLabel3.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        apartmentCreateLabel3.setText("Observações");
+
+        apartmentCreateBuilding.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        apartmentCreateBuilding.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentCreateBuildingActionPerformed(evt);
+            }
+        });
+
+        apartmentCreateNumber.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+
+        apartmentCreateConfirmButton.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        apartmentCreateConfirmButton.setText("Confirmar");
+        apartmentCreateConfirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentCreateConfirmButtonActionPerformed(evt);
+            }
+        });
+
+        apartmentCreateBackButton.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        apartmentCreateBackButton.setText("Voltar");
+        apartmentCreateBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentCreateBackButtonActionPerformed(evt);
+            }
+        });
+
+        apartmentCreateComments.setColumns(20);
+        apartmentCreateComments.setRows(5);
+        jScrollPane1.setViewportView(apartmentCreateComments);
+
+        javax.swing.GroupLayout apartmentCreatePanelLayout = new javax.swing.GroupLayout(apartmentCreatePanel);
+        apartmentCreatePanel.setLayout(apartmentCreatePanelLayout);
+        apartmentCreatePanelLayout.setHorizontalGroup(
+            apartmentCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(apartmentCreatePanelLayout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addGroup(apartmentCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(apartmentCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(apartmentCreateLabel3)
+                        .addComponent(apartmentCreateLabel2))
+                    .addComponent(apartmentCreateLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(apartmentCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(apartmentCreateNumber)
+                    .addComponent(apartmentCreateBuilding)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(apartmentCreatePanelLayout.createSequentialGroup()
+                .addGap(207, 207, 207)
+                .addComponent(apartmentCreateBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68)
+                .addComponent(apartmentCreateConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(225, Short.MAX_VALUE))
+        );
+        apartmentCreatePanelLayout.setVerticalGroup(
+            apartmentCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(apartmentCreatePanelLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(apartmentCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apartmentCreateLabel1)
+                    .addComponent(apartmentCreateBuilding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(apartmentCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apartmentCreateNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(apartmentCreateLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(apartmentCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(apartmentCreateLabel3)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addGroup(apartmentCreatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apartmentCreateBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(apartmentCreateConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34))
+        );
+
+        getContentPane().add(apartmentCreatePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 68, 800, 510));
+
+        apartmentSearchPanel.setPreferredSize(new java.awt.Dimension(600, 520));
+
+        apartmentSearchPerfilAccess.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentSearchPerfilAccess.setText("Acessar apartamento");
+        apartmentSearchPerfilAccess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentSearchPerfilAccessActionPerformed(evt);
+            }
+        });
+
+        apartmentSearchBackButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentSearchBackButton.setText("Voltar");
+        apartmentSearchBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentSearchBackButtonActionPerformed(evt);
+            }
+        });
+
+        apartmentSearchConfirmButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentSearchConfirmButton.setText("Buscar");
+        apartmentSearchConfirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentSearchConfirmButtonActionPerformed(evt);
+            }
+        });
+
+        apartmentSearchSearch.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        apartmentSearchjLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentSearchjLabel1.setText("Buscar por");
+
+        apartmentSearchSearchBy.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentSearchSearchBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Prédio", "Número" }));
+        apartmentSearchSearchBy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentSearchSearchByActionPerformed(evt);
+            }
+        });
+
+        apartmentSearchTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Prédio", "Número"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        apartmentSearchTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                apartmentSearchTableKeyReleased(evt);
+            }
+        });
+        tenantSearchjScrollPane2.setViewportView(apartmentSearchTable);
+
+        javax.swing.GroupLayout apartmentSearchPanelLayout = new javax.swing.GroupLayout(apartmentSearchPanel);
+        apartmentSearchPanel.setLayout(apartmentSearchPanelLayout);
+        apartmentSearchPanelLayout.setHorizontalGroup(
+            apartmentSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(apartmentSearchPanelLayout.createSequentialGroup()
+                .addGap(232, 232, 232)
+                .addGroup(apartmentSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(apartmentSearchPanelLayout.createSequentialGroup()
+                        .addComponent(apartmentSearchBackButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(apartmentSearchConfirmButton))
+                    .addComponent(apartmentSearchPerfilAccess))
+                .addContainerGap(371, Short.MAX_VALUE))
+            .addGroup(apartmentSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(apartmentSearchPanelLayout.createSequentialGroup()
+                    .addGap(110, 110, 110)
+                    .addComponent(apartmentSearchjLabel1)
+                    .addGap(18, 18, 18)
+                    .addComponent(apartmentSearchSearchBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(apartmentSearchSearch)
+                    .addGap(110, 110, 110))
+                .addGroup(apartmentSearchPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(tenantSearchjScrollPane2)
+                    .addContainerGap()))
+        );
+        apartmentSearchPanelLayout.setVerticalGroup(
+            apartmentSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apartmentSearchPanelLayout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addGroup(apartmentSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apartmentSearchBackButton)
+                    .addComponent(apartmentSearchConfirmButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 354, Short.MAX_VALUE)
+                .addComponent(apartmentSearchPerfilAccess)
+                .addGap(28, 28, 28))
+            .addGroup(apartmentSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(apartmentSearchPanelLayout.createSequentialGroup()
+                    .addGap(30, 30, 30)
+                    .addGroup(apartmentSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(apartmentSearchjLabel1)
+                        .addComponent(apartmentSearchSearchBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(apartmentSearchSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(54, 54, 54)
+                    .addComponent(tenantSearchjScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(70, Short.MAX_VALUE)))
+        );
+
+        getContentPane().add(apartmentSearchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 68, 800, 510));
+
+        apartmentReadPanel.setPreferredSize(new java.awt.Dimension(600, 520));
+
+        apartmentReadDeleteButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentReadDeleteButton.setText("Deletar");
+        apartmentReadDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentReadDeleteButtonActionPerformed(evt);
+            }
+        });
+
+        apartmentReadComments.setEditable(false);
+        apartmentReadComments.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        apartmentReadNumber.setEditable(false);
+        apartmentReadNumber.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentReadNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentReadNumberActionPerformed(evt);
+            }
+        });
+
+        apartmentReadBuilding.setEditable(false);
+        apartmentReadBuilding.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentReadBuilding.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentReadBuildingActionPerformed(evt);
+            }
+        });
+
+        apartmentReadEditButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentReadEditButton.setText("Editar");
+        apartmentReadEditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentReadEditButtonActionPerformed(evt);
+            }
+        });
+
+        apartmentReadBackButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentReadBackButton.setText("Voltar");
+        apartmentReadBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentReadBackButtonActionPerformed(evt);
+            }
+        });
+
+        apartmentReadjLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentReadjLabel3.setText("Observações");
+
+        apartmentReadjLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentReadjLabel2.setText("Número");
+
+        apartmentReadjLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentReadjLabel1.setText("Prédio");
+
+        javax.swing.GroupLayout apartmentReadPanelLayout = new javax.swing.GroupLayout(apartmentReadPanel);
+        apartmentReadPanel.setLayout(apartmentReadPanelLayout);
+        apartmentReadPanelLayout.setHorizontalGroup(
+            apartmentReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(apartmentReadPanelLayout.createSequentialGroup()
+                .addContainerGap(237, Short.MAX_VALUE)
+                .addGroup(apartmentReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apartmentReadPanelLayout.createSequentialGroup()
+                        .addGroup(apartmentReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(apartmentReadjLabel3)
+                            .addComponent(apartmentReadjLabel2)
+                            .addComponent(apartmentReadjLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(apartmentReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(apartmentReadComments, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                            .addComponent(apartmentReadNumber)
+                            .addComponent(apartmentReadBuilding))
+                        .addGap(174, 174, 174))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apartmentReadPanelLayout.createSequentialGroup()
+                        .addComponent(apartmentReadBackButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(apartmentReadEditButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(apartmentReadDeleteButton)
+                        .addGap(243, 243, 243))))
+        );
+        apartmentReadPanelLayout.setVerticalGroup(
+            apartmentReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(apartmentReadPanelLayout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addGroup(apartmentReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apartmentReadjLabel1)
+                    .addComponent(apartmentReadBuilding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(apartmentReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apartmentReadjLabel2)
+                    .addComponent(apartmentReadNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(apartmentReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(apartmentReadComments, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(apartmentReadjLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(apartmentReadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apartmentReadBackButton)
+                    .addComponent(apartmentReadEditButton)
+                    .addComponent(apartmentReadDeleteButton))
+                .addGap(126, 126, 126))
+        );
+
+        getContentPane().add(apartmentReadPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 68, 800, 510));
+
+        apartmentUpdatePanel.setPreferredSize(new java.awt.Dimension(600, 520));
+
+        apartmentUpdateConfirmButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentUpdateConfirmButton.setText("Confirmar");
+        apartmentUpdateConfirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentUpdateConfirmButtonActionPerformed(evt);
+            }
+        });
+
+        apartmentUpdateComments.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        apartmentUpdateNumber.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentUpdateNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentUpdateNumberActionPerformed(evt);
+            }
+        });
+
+        apartmentUpdateBuilding.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentUpdateBuilding.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentUpdateBuildingActionPerformed(evt);
+            }
+        });
+
+        apartmentUpdateBackButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentUpdateBackButton.setText("Voltar");
+        apartmentUpdateBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentUpdateBackButtonActionPerformed(evt);
+            }
+        });
+
+        apartmentUpdatejLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentUpdatejLabel1.setText("Observações");
+
+        apartmentUpdatejLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentUpdatejLabel2.setText("Número");
+
+        apartmentUpdatejLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apartmentUpdatejLabel3.setText("Prédio");
+
+        javax.swing.GroupLayout apartmentUpdatePanelLayout = new javax.swing.GroupLayout(apartmentUpdatePanel);
+        apartmentUpdatePanel.setLayout(apartmentUpdatePanelLayout);
+        apartmentUpdatePanelLayout.setHorizontalGroup(
+            apartmentUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(apartmentUpdatePanelLayout.createSequentialGroup()
+                .addContainerGap(237, Short.MAX_VALUE)
+                .addGroup(apartmentUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apartmentUpdatePanelLayout.createSequentialGroup()
+                        .addGroup(apartmentUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(apartmentUpdatejLabel1)
+                            .addComponent(apartmentUpdatejLabel2)
+                            .addComponent(apartmentUpdatejLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(apartmentUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(apartmentUpdateComments, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                            .addComponent(apartmentUpdateNumber)
+                            .addComponent(apartmentUpdateBuilding))
+                        .addGap(174, 174, 174))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apartmentUpdatePanelLayout.createSequentialGroup()
+                        .addComponent(apartmentUpdateBackButton)
+                        .addGap(28, 28, 28)
+                        .addComponent(apartmentUpdateConfirmButton)
+                        .addGap(285, 285, 285))))
+        );
+        apartmentUpdatePanelLayout.setVerticalGroup(
+            apartmentUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(apartmentUpdatePanelLayout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addGroup(apartmentUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apartmentUpdatejLabel3)
+                    .addComponent(apartmentUpdateBuilding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(apartmentUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apartmentUpdatejLabel2)
+                    .addComponent(apartmentUpdateNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(apartmentUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(apartmentUpdateComments, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(apartmentUpdatejLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(apartmentUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apartmentUpdateBackButton)
+                    .addComponent(apartmentUpdateConfirmButton))
+                .addGap(126, 126, 126))
+        );
+
+        getContentPane().add(apartmentUpdatePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 68, 800, 510));
 
         jMenu1.setText("Perfil");
 
@@ -835,6 +1470,10 @@ public class ApartmentRental extends javax.swing.JFrame {
 
     private void tenantCreateConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenantCreateConfirmButtonActionPerformed
         // TODO add your handling code here:
+        String apartmentText;
+        String[] apartmentTextParts;
+        Integer apartmentId = null;
+        ApartmentDAO apartmentDao = new ApartmentDAO();
         
         if(tenantCreateName.getText().isEmpty() || tenantCreateCpf.getText().isEmpty() ||
                 tenantCreateRg.getText().isEmpty() || tenantCreatePhone.getText().isEmpty() ||
@@ -853,8 +1492,27 @@ public class ApartmentRental extends javax.swing.JFrame {
             tenant.setBirthday(new Date(tenantCreateYear.getSelectedIndex(), tenantCreateMonth.getSelectedIndex(), tenantCreateDay.getSelectedIndex()+1));
             tenant.setPhone(tenantCreatePhone.getText());
             tenant.setLandline(tenantCreateLandline.getText());
+            
+            apartmentText = tenantCreateApartments.getSelectedItem().toString();
+            if(apartmentText.equals("Sem apartamento designado")) {
+                apartmentId = -255;
+            } else {
+                apartmentTextParts = apartmentText.split(" ");
+                for(Apartment apartment: apartmentDao.read()) {
+                    if(apartment.getBuilding().equals(apartmentTextParts[4]) &&
+                            Integer.toString(apartment.getNumber()).equals(apartmentTextParts[1])) {
+                        apartmentId = apartment.getId();
+                    }
+                }
+            }
+            
+            tenant.setApartment(apartmentId);
             tenantDao.create(tenant);
 
+            if(tenantCreateApartments.getSelectedItem().toString().equals("Sem apartamento designado")) {
+                JOptionPane.showMessageDialog(null, "Você cadastrou um inquilino sem apartamento, lembre-se de designar um apartamento depois!");
+            }
+            
             menuPanel.setVisible(true);
             tenantCreatePanel.setVisible(false);
             tenantCreateName.setText("");
@@ -865,6 +1523,7 @@ public class ApartmentRental extends javax.swing.JFrame {
             tenantCreateDay.setSelectedIndex(0);
             tenantCreatePhone.setText("");
             tenantCreateLandline.setText("");
+            tenantCreateApartments.setSelectedIndex(0);
         }
     }//GEN-LAST:event_tenantCreateConfirmButtonActionPerformed
 
@@ -876,12 +1535,28 @@ public class ApartmentRental extends javax.swing.JFrame {
 
     private void tenantCreateSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenantCreateSearchButtonActionPerformed
         // TODO add your handling code here:
+        
+        TenantDAO tenantDao = new TenantDAO();
+        
+        if(tenantDao.read().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "É necessário cadastrar ao menos um inquilino primeiro!");
+            return;
+        }
+        
         tenantSearchPanel.setVisible(true);
         menuPanel.setVisible(false);
     }//GEN-LAST:event_tenantCreateSearchButtonActionPerformed
 
     private void tenantCreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenantCreateButtonActionPerformed
         // TODO add your handling code here:
+        ApartmentDAO apartmentDao = new ApartmentDAO();
+        
+        tenantCreateApartments.removeAllItems();
+        tenantCreateApartments.addItem("Sem apartamento designado");
+        for(Apartment apartment: apartmentDao.read()) {
+            tenantCreateApartments.addItem("Número: " + apartment.getNumber() + " - Prédio: " + apartment.getBuilding());
+        }
+        
         tenantCreatePanel.setVisible(true);
         menuPanel.setVisible(false);
     }//GEN-LAST:event_tenantCreateButtonActionPerformed
@@ -889,6 +1564,7 @@ public class ApartmentRental extends javax.swing.JFrame {
     private void tenantSearchPerfilAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenantSearchPerfilAccessActionPerformed
         // TODO add your handling code here:
         DefaultTableModel tableModel = (DefaultTableModel) tenantSearchTable.getModel();
+        ApartmentDAO apartmentDao = new ApartmentDAO();
 
         if(tenantSearchTable.getSelectedRow() != -1) {
             Integer idSelectedUser = (Integer) tenantSearchTable.getValueAt(tenantSearchTable.getSelectedRow(), 0); // ID column
@@ -900,6 +1576,21 @@ public class ApartmentRental extends javax.swing.JFrame {
                     tenantReadName.setText(selectedTenant.getName());
                     tenantReadCpf.setText(selectedTenant.getCpf());
                     tenantReadRg.setText(selectedTenant.getRg());
+                    tenantReadDay.setText(Integer.toString(selectedTenant.getBirthday().toLocalDate().getDayOfMonth()));
+                    tenantReadMonth.setText(Integer.toString(selectedTenant.getBirthday().toLocalDate().getMonthValue()));
+                    tenantReadYear.setText(Integer.toString(selectedTenant.getBirthday().toLocalDate().getYear()));
+                    tenantReadPhone.setText(selectedTenant.getPhone());
+                    tenantReadLandline.setText(selectedTenant.getLandline());
+        
+                    for(Apartment apartment: apartmentDao.read()) {
+                        if(apartment.getId() == selectedTenant.getApartment()) {
+                            tenantReadApartment.setText("Número: " + apartment.getNumber() + " - Prédio: " + apartment.getBuilding());
+                        }
+                    }
+                    if(tenantReadApartment.getText().equals("")) {
+                        tenantReadApartment.setText("Sem apartamento designado");
+                    }
+                    
                     tenantReadPanel.setVisible(true);
                     tenantSearchPanel.setVisible(false);
                 } else {
@@ -925,55 +1616,75 @@ public class ApartmentRental extends javax.swing.JFrame {
         cleanSearch();
 
         TenantDAO tenantDao = new TenantDAO();
+        ApartmentDAO apartmentDao = new ApartmentDAO();
+        String apartmentText = null;
 
         for(Tenant tenant: tenantDao.read()) {
+            apartmentText = null;
+            
             if(tenantSearchSearch.getText().isEmpty()) {
+                for(Apartment apartment: apartmentDao.read()) {
+                    if(apartment.getId() == tenant.getApartment()) {
+                        apartmentText = "Número: " + apartment.getNumber() + " - Prédio: " + apartment.getBuilding();
+                    }
+                }
+                if(apartmentText == null) {
+                    apartmentText = "Sem apartamento designado";
+                }
                 tableModel.addRow(new Object[]{
                     tenant.getId(),
                     tenant.getName(),
-                    tenant.getCpf(),
-                    tenant.getRg(),
-                    tenant.getBirthday(),
-                    tenant.getPhone(),
-                    tenant.getLandline()
+                    apartmentText
                 });
             } else {
                 if(tenantSearchSearchBy.getSelectedItem().equals("Nome")) {
                     if(tenant.getName().contains(tenantSearchSearch.getText())) {
+                        for(Apartment apartment: apartmentDao.read()) {
+                            if(apartment.getId() == tenant.getApartment()) {
+                                apartmentText = "Número: " + apartment.getNumber() + " - Prédio: " + apartment.getBuilding();
+                            }
+                        }
+                        if(apartmentText == null) {
+                            apartmentText = "Sem apartamento designado";
+                        }
                         tableModel.addRow(new Object[]{
                             tenant.getId(),
                             tenant.getName(),
-                            tenant.getCpf(),
-                            tenant.getRg(),
-                            tenant.getBirthday(),
-                            tenant.getPhone(),
-                            tenant.getLandline()
+                            apartmentText
                         });
                     }
                 }
                 else if(tenantSearchSearchBy.getSelectedItem().equals("CPF")) {
                     if(tenant.getCpf().contains(tenantSearchSearch.getText())) {
+                        for(Apartment apartment: apartmentDao.read()) {
+                            if(apartment.getId() == tenant.getApartment()) {
+                                apartmentText = "Número: " + apartment.getNumber() + " - Prédio: " + apartment.getBuilding();
+                            }
+                        }
+                        if(apartmentText == null) {
+                            apartmentText = "Sem apartamento designado";
+                        }
                         tableModel.addRow(new Object[]{
                             tenant.getId(),
                             tenant.getName(),
-                            tenant.getCpf(),
-                            tenant.getRg(),
-                            tenant.getBirthday(),
-                            tenant.getPhone(),
-                            tenant.getLandline()
+                            apartmentText
                         });
                     }
                 }
                 else if(tenantSearchSearchBy.getSelectedItem().equals("RG")) {
                     if(tenant.getRg().contains(tenantSearchSearch.getText())) {
+                        for(Apartment apartment: apartmentDao.read()) {
+                            if(apartment.getId() == tenant.getApartment()) {
+                                apartmentText = "Número: " + apartment.getNumber() + " - Prédio: " + apartment.getBuilding();
+                            }
+                        }
+                        if(apartmentText == null) {
+                            apartmentText = "Sem apartamento designado";
+                        }
                         tableModel.addRow(new Object[]{
                             tenant.getId(),
                             tenant.getName(),
-                            tenant.getCpf(),
-                            tenant.getRg(),
-                            tenant.getBirthday(),
-                            tenant.getPhone(),
-                            tenant.getLandline()
+                            apartmentText
                         });
                     }
                 }
@@ -1014,9 +1725,28 @@ public class ApartmentRental extends javax.swing.JFrame {
 
     private void tenantReadEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenantReadEditButtonActionPerformed
         // TODO add your handling code here:
+        ApartmentDAO apartmentDao = new ApartmentDAO();
+        
         tenantUpdateName.setText(selectedTenant.getName());
         tenantUpdateCpf.setText(selectedTenant.getCpf());
         tenantUpdateRg.setText(selectedTenant.getRg());
+        tenantUpdateDay.setSelectedIndex(selectedTenant.getBirthday().toLocalDate().getDayOfMonth()-1);
+        tenantUpdateMonth.setSelectedIndex(selectedTenant.getBirthday().toLocalDate().getMonthValue()-1);
+        tenantUpdateYear.setSelectedIndex(selectedTenant.getBirthday().toLocalDate().getYear()-1900);
+        tenantUpdatePhone.setText(selectedTenant.getPhone());
+        tenantUpdateLandline.setText(selectedTenant.getLandline());
+        
+        tenantUpdateApartments.removeAllItems();
+        tenantUpdateApartments.addItem("Sem apartamento designado");
+        int i = 1;
+        for(Apartment apartment: apartmentDao.read()) {
+            tenantUpdateApartments.addItem("Número: " + apartment.getNumber() + " - Prédio: " + apartment.getBuilding());
+            if(apartment.getId() == selectedTenant.getApartment()) {
+                tenantUpdateApartments.setSelectedIndex(i);
+            }
+            i++;
+        }
+        
         tenantUpdatePanel.setVisible(true);
         tenantReadPanel.setVisible(false);
     }//GEN-LAST:event_tenantReadEditButtonActionPerformed
@@ -1025,6 +1755,7 @@ public class ApartmentRental extends javax.swing.JFrame {
         // TODO add your handling code here:
         tenantSearchPanel.setVisible(true);
         tenantReadPanel.setVisible(false);
+        cleanSelectedTenant();
     }//GEN-LAST:event_tenantReadBackButton2ActionPerformed
 
     private void tenantUpdateNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenantUpdateNameActionPerformed
@@ -1048,12 +1779,34 @@ public class ApartmentRental extends javax.swing.JFrame {
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         // TODO add your handling code here:
+        String apartmentText;
+        String[] apartmentTextParts;
+        Integer apartmentId = null;
+        ApartmentDAO apartmentDao = new ApartmentDAO();
         Tenant tenant = new Tenant();
         TenantDAO tenantDao = new TenantDAO();
 
         tenant.setName(tenantUpdateName.getText());
         tenant.setCpf(tenantUpdateCpf.getText());
         tenant.setRg(tenantUpdateRg.getText());
+        tenant.setBirthday(new Date(tenantUpdateYear.getSelectedIndex(), tenantUpdateMonth.getSelectedIndex(), tenantUpdateDay.getSelectedIndex()+1));
+        tenant.setPhone(tenantUpdatePhone.getText());
+        tenant.setLandline(tenantUpdateLandline.getText());
+
+        apartmentText = tenantUpdateApartments.getSelectedItem().toString();
+        if(apartmentText.equals("Sem apartamento designado")) {
+            apartmentId = -255;
+        } else {
+            apartmentTextParts = apartmentText.split(" ");
+            for(Apartment apartment: apartmentDao.read()) {
+                if(apartment.getBuilding().equals(apartmentTextParts[4]) &&
+                        Integer.toString(apartment.getNumber()).equals(apartmentTextParts[1])) {
+                    apartmentId = apartment.getId();
+                }
+            }
+        }
+
+        tenant.setApartment(apartmentId);
         tenant.setId(selectedTenant.getId());
         tenantDao.update(tenant);
         
@@ -1081,6 +1834,223 @@ public class ApartmentRental extends javax.swing.JFrame {
         ApartmentRental.this.tenantReadPanel.setVisible(false);
         ApartmentRental.this.tenantUpdatePanel.setVisible(false);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void apartmentCreateBuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentCreateBuildingActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_apartmentCreateBuildingActionPerformed
+
+    private void apartmentCreateConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentCreateConfirmButtonActionPerformed
+        // TODO add your handling code here:
+        if(apartmentCreateBuilding.getText().isEmpty() || apartmentCreateNumber.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Há campos obrigatórios não preenchidos!");
+        } else {
+            model.bean.Apartment apartment = new model.bean.Apartment();
+            ApartmentDAO apartmentDao = new ApartmentDAO();
+
+            apartment.setBuilding(apartmentCreateBuilding.getText());
+            apartment.setNumber(new Integer(apartmentCreateNumber.getText()));
+            apartment.setComments(apartmentCreateComments.getText());
+            apartmentDao.create(apartment);
+
+            menuPanel.setVisible(true);
+            apartmentCreatePanel.setVisible(false);
+            apartmentCreateBuilding.setText("");
+            apartmentCreateNumber.setText("");
+            apartmentCreateComments.setText("");
+        }
+    }//GEN-LAST:event_apartmentCreateConfirmButtonActionPerformed
+
+    private void apartmentCreateBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentCreateBackButtonActionPerformed
+        // TODO add your handling code here:
+        menuPanel.setVisible(true);
+        apartmentCreatePanel.setVisible(false);
+    }//GEN-LAST:event_apartmentCreateBackButtonActionPerformed
+
+    private void apartmentCreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentCreateButtonActionPerformed
+        // TODO add your handling code here:
+        apartmentCreatePanel.setVisible(true);
+        menuPanel.setVisible(false);
+    }//GEN-LAST:event_apartmentCreateButtonActionPerformed
+
+    private void apartmentCreateSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentCreateSearchButtonActionPerformed
+        // TODO add your handling code here:
+        ApartmentDAO apartmentDao = new ApartmentDAO();
+        
+        if(apartmentDao.read().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "É necessário cadastrar ao menos um apartamento primeiro!");
+            return;
+        }
+        
+        apartmentSearchPanel.setVisible(true);
+        menuPanel.setVisible(false);
+    }//GEN-LAST:event_apartmentCreateSearchButtonActionPerformed
+
+    private void apartmentSearchPerfilAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentSearchPerfilAccessActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel tableModel = (DefaultTableModel) apartmentSearchTable.getModel();
+
+        if(apartmentSearchTable.getSelectedRow() != -1) {
+            Integer idSelectedApartment = (Integer) apartmentSearchTable.getValueAt(apartmentSearchTable.getSelectedRow(), 0); // ID column
+            ApartmentDAO apartmentDao = new ApartmentDAO();
+
+            for(Apartment apartment: apartmentDao.read()) {
+                if(apartment.getId() == idSelectedApartment) {
+                    selectedApartment = apartment;
+                    apartmentReadBuilding.setText(selectedApartment.getBuilding());
+                    apartmentReadNumber.setText(Integer.toString(selectedApartment.getNumber()));
+                    apartmentReadComments.setText(selectedApartment.getComments());
+                    apartmentReadPanel.setVisible(true);
+                    apartmentSearchPanel.setVisible(false);
+                } else {
+                    // Do nothing
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "É necessário selecionar um apartamento para acessar o perfil!");
+        }
+    }//GEN-LAST:event_apartmentSearchPerfilAccessActionPerformed
+
+    private void apartmentSearchBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentSearchBackButtonActionPerformed
+        // TODO add your handling code here:
+        menuPanel.setVisible(true);
+        apartmentSearchPanel.setVisible(false);
+    }//GEN-LAST:event_apartmentSearchBackButtonActionPerformed
+
+    private void apartmentSearchConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentSearchConfirmButtonActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel tableModel = (DefaultTableModel) apartmentSearchTable.getModel();
+        cleanSearch();
+
+        ApartmentDAO apartmentDao = new ApartmentDAO();
+
+        for(Apartment apartment: apartmentDao.read()) {
+            if(apartmentSearchSearch.getText().isEmpty()) {
+                tableModel.addRow(new Object[]{
+                    apartment.getId(),
+                    apartment.getBuilding(),
+                    apartment.getNumber()
+                });
+            } else {
+                if(apartmentSearchSearchBy.getSelectedItem().equals("Prédio")) {
+                    if(apartment.getBuilding().contains(apartmentSearchSearch.getText())) {
+                        tableModel.addRow(new Object[]{
+                            apartment.getId(),
+                            apartment.getBuilding(),
+                            apartment.getNumber()
+                        });
+                    }
+                }
+                else if(apartmentSearchSearchBy.getSelectedItem().equals("Número")) {
+                    if(Integer.toString(apartment.getNumber()).contains(apartmentSearchSearch.getText())) {
+                        tableModel.addRow(new Object[]{
+                            apartment.getId(),
+                            apartment.getBuilding(),
+                            apartment.getNumber()
+                        });
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_apartmentSearchConfirmButtonActionPerformed
+
+    private void apartmentSearchTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apartmentSearchTableKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_apartmentSearchTableKeyReleased
+
+    private void apartmentSearchSearchByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentSearchSearchByActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_apartmentSearchSearchByActionPerformed
+
+    private void tenantSearchSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenantSearchSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tenantSearchSearchActionPerformed
+
+    private void apartmentReadDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentReadDeleteButtonActionPerformed
+        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este apartamento?", "Confirmar exclusão", JOptionPane.YES_NO_OPTION) == 0) {
+            Apartment apartment = new Apartment();
+            ApartmentDAO apartmentDao = new ApartmentDAO();
+            TenantDAO tenantDao = new TenantDAO();
+
+            apartment.setId(selectedApartment.getId());
+            apartmentDao.delete(apartment);
+        
+            for(Tenant tenant: tenantDao.read()) {
+                if(tenant.getApartment() == apartment.getId()) {
+                    tenant.setApartment(-255);
+                }
+            }
+            
+            menuPanel.setVisible(true);
+            apartmentReadPanel.setVisible(false);
+            cleanSelectedApartment();
+            cleanSearch();
+        } else {
+            // JOptionPane.showMessageDialog(null, "Exclusão cancelada!");
+        }
+    }//GEN-LAST:event_apartmentReadDeleteButtonActionPerformed
+
+    private void apartmentReadNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentReadNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_apartmentReadNumberActionPerformed
+
+    private void apartmentReadBuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentReadBuildingActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_apartmentReadBuildingActionPerformed
+
+    private void apartmentReadEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentReadEditButtonActionPerformed
+        // TODO add your handling code here:
+        ApartmentDAO apartmentDao = new ApartmentDAO();
+        
+        apartmentUpdateBuilding.setText(selectedApartment.getBuilding());
+        apartmentUpdateNumber.setText(Integer.toString(selectedApartment.getNumber()));
+        apartmentUpdateComments.setText(selectedApartment.getComments());
+        
+        apartmentUpdatePanel.setVisible(true);
+        apartmentReadPanel.setVisible(false);
+    }//GEN-LAST:event_apartmentReadEditButtonActionPerformed
+
+    private void apartmentReadBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentReadBackButtonActionPerformed
+        // TODO add your handling code here:
+        apartmentSearchPanel.setVisible(true);
+        apartmentReadPanel.setVisible(false);
+    }//GEN-LAST:event_apartmentReadBackButtonActionPerformed
+
+    private void apartmentUpdateConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentUpdateConfirmButtonActionPerformed
+        // TODO add your handling code here:        
+        Apartment apartment = new Apartment();
+        ApartmentDAO apartmentDao = new ApartmentDAO();
+
+        apartment.setBuilding(apartmentUpdateBuilding.getText());
+        apartment.setNumber(new Integer(apartmentUpdateNumber.getText()));
+        apartment.setComments(apartmentUpdateComments.getText());
+        apartment.setId(selectedApartment.getId());
+        apartmentDao.update(apartment);
+        
+        menuPanel.setVisible(true);
+        apartmentUpdatePanel.setVisible(false);
+        // mudar isso aqui abaixo
+        apartmentUpdateBuilding.setText("");
+        apartmentUpdateNumber.setText("");
+        apartmentUpdateComments.setText("");
+        //---------------------
+        cleanSelectedApartment();
+        cleanSearch();
+    }//GEN-LAST:event_apartmentUpdateConfirmButtonActionPerformed
+
+    private void apartmentUpdateNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentUpdateNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_apartmentUpdateNumberActionPerformed
+
+    private void apartmentUpdateBuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentUpdateBuildingActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_apartmentUpdateBuildingActionPerformed
+
+    private void apartmentUpdateBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentUpdateBackButtonActionPerformed
+        // TODO add your handling code here:
+        apartmentReadPanel.setVisible(true);
+        apartmentUpdatePanel.setVisible(false);
+    }//GEN-LAST:event_apartmentUpdateBackButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1121,6 +2091,44 @@ public class ApartmentRental extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton apartmentCreateBackButton;
+    private javax.swing.JTextField apartmentCreateBuilding;
+    private javax.swing.JButton apartmentCreateButton;
+    private javax.swing.JTextArea apartmentCreateComments;
+    private javax.swing.JButton apartmentCreateConfirmButton;
+    private javax.swing.JLabel apartmentCreateLabel1;
+    private javax.swing.JLabel apartmentCreateLabel2;
+    private javax.swing.JLabel apartmentCreateLabel3;
+    private javax.swing.JTextField apartmentCreateNumber;
+    private javax.swing.JPanel apartmentCreatePanel;
+    private javax.swing.JButton apartmentCreateSearchButton;
+    private javax.swing.JButton apartmentReadBackButton;
+    private javax.swing.JTextField apartmentReadBuilding;
+    private javax.swing.JTextField apartmentReadComments;
+    private javax.swing.JButton apartmentReadDeleteButton;
+    private javax.swing.JButton apartmentReadEditButton;
+    private javax.swing.JTextField apartmentReadNumber;
+    private javax.swing.JPanel apartmentReadPanel;
+    private javax.swing.JLabel apartmentReadjLabel1;
+    private javax.swing.JLabel apartmentReadjLabel2;
+    private javax.swing.JLabel apartmentReadjLabel3;
+    private javax.swing.JButton apartmentSearchBackButton;
+    private javax.swing.JButton apartmentSearchConfirmButton;
+    private javax.swing.JPanel apartmentSearchPanel;
+    private javax.swing.JButton apartmentSearchPerfilAccess;
+    private javax.swing.JTextField apartmentSearchSearch;
+    private javax.swing.JComboBox<String> apartmentSearchSearchBy;
+    private javax.swing.JTable apartmentSearchTable;
+    private javax.swing.JLabel apartmentSearchjLabel1;
+    private javax.swing.JButton apartmentUpdateBackButton;
+    private javax.swing.JTextField apartmentUpdateBuilding;
+    private javax.swing.JTextField apartmentUpdateComments;
+    private javax.swing.JButton apartmentUpdateConfirmButton;
+    private javax.swing.JTextField apartmentUpdateNumber;
+    private javax.swing.JPanel apartmentUpdatePanel;
+    private javax.swing.JLabel apartmentUpdatejLabel1;
+    private javax.swing.JLabel apartmentUpdatejLabel2;
+    private javax.swing.JLabel apartmentUpdatejLabel3;
     private javax.swing.JPanel apartmentjPanel;
     private javax.swing.JMenuBar applicationWindowjMenuBar;
     private javax.swing.JButton confirmButton;
@@ -1130,6 +2138,7 @@ public class ApartmentRental extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton loginConfirmButton;
     private javax.swing.JButton loginExitButton;
     private javax.swing.JLabel loginLabel2;
@@ -1139,6 +2148,7 @@ public class ApartmentRental extends javax.swing.JFrame {
     private javax.swing.JTextField loginUsername;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JTabbedPane menujTabbedPane;
+    private javax.swing.JComboBox<String> tenantCreateApartments;
     private javax.swing.JButton tenantCreateBackButton;
     private javax.swing.JButton tenantCreateButton;
     private javax.swing.JButton tenantCreateConfirmButton;
@@ -1150,6 +2160,7 @@ public class ApartmentRental extends javax.swing.JFrame {
     private javax.swing.JLabel tenantCreateLabel5;
     private javax.swing.JLabel tenantCreateLabel6;
     private javax.swing.JLabel tenantCreateLabel7;
+    private javax.swing.JLabel tenantCreateLabel8;
     private javax.swing.JTextField tenantCreateLandline;
     private javax.swing.JComboBox<String> tenantCreateMonth;
     private javax.swing.JTextField tenantCreateName;
@@ -1158,16 +2169,26 @@ public class ApartmentRental extends javax.swing.JFrame {
     private javax.swing.JTextField tenantCreateRg;
     private javax.swing.JButton tenantCreateSearchButton;
     private javax.swing.JComboBox<String> tenantCreateYear;
+    private javax.swing.JTextField tenantReadApartment;
     private javax.swing.JButton tenantReadBackButton2;
     private javax.swing.JTextField tenantReadCpf;
+    private javax.swing.JTextField tenantReadDay;
     private javax.swing.JButton tenantReadDeleteButton;
     private javax.swing.JButton tenantReadEditButton;
+    private javax.swing.JTextField tenantReadLandline;
+    private javax.swing.JTextField tenantReadMonth;
     private javax.swing.JTextField tenantReadName;
     private javax.swing.JPanel tenantReadPanel;
+    private javax.swing.JTextField tenantReadPhone;
     private javax.swing.JTextField tenantReadRg;
+    private javax.swing.JTextField tenantReadYear;
     private javax.swing.JLabel tenantReadjLabel1;
     private javax.swing.JLabel tenantReadjLabel2;
     private javax.swing.JLabel tenantReadjLabel3;
+    private javax.swing.JLabel tenantReadjLabel4;
+    private javax.swing.JLabel tenantReadjLabel5;
+    private javax.swing.JLabel tenantReadjLabel6;
+    private javax.swing.JLabel tenantReadjLabel7;
     private javax.swing.JButton tenantSearchBackButton;
     private javax.swing.JButton tenantSearchConfirmButton;
     private javax.swing.JPanel tenantSearchPanel;
@@ -1177,14 +2198,25 @@ public class ApartmentRental extends javax.swing.JFrame {
     private javax.swing.JTable tenantSearchTable;
     private javax.swing.JLabel tenantSearchjLabel1;
     private javax.swing.JScrollPane tenantSearchjScrollPane1;
+    private javax.swing.JScrollPane tenantSearchjScrollPane2;
+    private javax.swing.JComboBox<String> tenantUpdateApartments;
     private javax.swing.JButton tenantUpdateBackButton;
     private javax.swing.JTextField tenantUpdateCpf;
+    private javax.swing.JComboBox<String> tenantUpdateDay;
     private javax.swing.JLabel tenantUpdateLabel1;
     private javax.swing.JLabel tenantUpdateLabel2;
     private javax.swing.JLabel tenantUpdateLabel3;
+    private javax.swing.JLabel tenantUpdateLabel4;
+    private javax.swing.JTextField tenantUpdateLandline;
+    private javax.swing.JComboBox<String> tenantUpdateMonth;
     private javax.swing.JTextField tenantUpdateName;
     private javax.swing.JPanel tenantUpdatePanel;
+    private javax.swing.JTextField tenantUpdatePhone;
     private javax.swing.JTextField tenantUpdateRg;
+    private javax.swing.JComboBox<String> tenantUpdateYear;
+    private javax.swing.JLabel tenantUpdatejLabel10;
+    private javax.swing.JLabel tenantUpdatejLabel8;
+    private javax.swing.JLabel tenantUpdatejLabel9;
     private javax.swing.JPanel tenantjPanel;
     // End of variables declaration//GEN-END:variables
 }

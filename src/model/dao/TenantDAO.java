@@ -31,13 +31,14 @@ public class TenantDAO {
         PreparedStatement preparedStatement = null;
         
         try {
-            preparedStatement = connection.prepareStatement("INSERT INTO tenant (name, cpf, rg, birthday, phone, landline) VALUES (?, ?, ?, ?, ?, ?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO tenant (name, cpf, rg, birthday, phone, landline, apartment) VALUES (?, ?, ?, ?, ?, ?, ?)");
             preparedStatement.setString(1, tenant.getName());
             preparedStatement.setString(2, tenant.getCpf());
             preparedStatement.setString(3, tenant.getRg());
             preparedStatement.setDate(4, tenant.getBirthday());
             preparedStatement.setString(5, tenant.getPhone());
             preparedStatement.setString(6, tenant.getLandline());
+            preparedStatement.setInt(7, tenant.getApartment());
             
             preparedStatement.executeUpdate();
             
@@ -72,6 +73,7 @@ public class TenantDAO {
                 tenant.setBirthday(resultSet.getDate("birthday"));
                 tenant.setPhone(resultSet.getString("phone"));
                 tenant.setLandline(resultSet.getString("landline"));
+                tenant.setApartment(resultSet.getInt("apartment"));
                 tenants.add(tenant);
                 
             }
@@ -100,11 +102,15 @@ public class TenantDAO {
         PreparedStatement preparedStatement = null;
         
         try {
-            preparedStatement = connection.prepareStatement("UPDATE tenant SET name = ?, cpf = ?, rg = ? WHERE id = ?");
+            preparedStatement = connection.prepareStatement("UPDATE tenant SET name = ?, cpf = ?, rg = ?, birthday = ?, phone = ?, landline = ?, apartment = ? WHERE id = ?");
             preparedStatement.setString(1, tenant.getName());
             preparedStatement.setString(2, tenant.getCpf());
             preparedStatement.setString(3, tenant.getRg());
-            preparedStatement.setInt(4, tenant.getId());
+            preparedStatement.setDate(4, tenant.getBirthday());
+            preparedStatement.setString(5, tenant.getPhone());
+            preparedStatement.setString(6, tenant.getLandline());
+            preparedStatement.setInt(7, tenant.getApartment());
+            preparedStatement.setInt(8, tenant.getId());
             
             preparedStatement.executeUpdate();
             
@@ -115,6 +121,7 @@ public class TenantDAO {
             ConnectionFactory.closeConnection(connection, preparedStatement);
         }
     }
+    
     public void delete(Tenant tenant) {
         
         Connection connection = ConnectionFactory.getConnection();

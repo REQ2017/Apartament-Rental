@@ -19,6 +19,7 @@ public class Tenant {
     private Date birthday;
     private String phone;
     private String landline;
+    private int apartment;
 
     public int getId() {
         return id;
@@ -74,5 +75,13 @@ public class Tenant {
 
     public void setLandline(String landline) {
         this.landline = landline;
+    }
+
+    public int getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(int apartment) {
+        this.apartment = apartment;
     }
 }
